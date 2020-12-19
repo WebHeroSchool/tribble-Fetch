@@ -13,15 +13,15 @@ let getName = (url) => {
 let name = getName(url);
 
 fetch('https://api.github.com/users/' + name)
- .then(res => res.json())
- .then(showUserInfo => {
+ .then(result => result.json())
+ .then(json => {
   if (json.message === "Not Found") {
           alert('Информация о пользователе не доступна');
         }
-  let login = showUserInfo.login;
-  let photo = showUserInfo.avatar_url;
-  let description = showUserInfo.bio;
-  let link = showUserInfo.html_url;
+  let login = json.login;
+  let photo = json.avatar_url;
+  let description = json.bio;
+  let link = json.html_url;
 
   let addLogin = () => {
     let showLogin = document.createElement('h1');
@@ -58,4 +58,4 @@ fetch('https://api.github.com/users/' + name)
   addPhoto();
   addUserUrl();
 })
-.catch(error => alert('Информация о пользователе не доступна'));
+.catch(error => alert(error));
